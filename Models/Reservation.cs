@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace HotelRoom_Architecture_DataAnnotation_FluentAPI.Models
@@ -10,20 +11,32 @@ namespace HotelRoom_Architecture_DataAnnotation_FluentAPI.Models
     {
         // Reservation class representing a hotel room reservation with properties for ID, guest name, number of nights, booking date, and associated room.
         [Key]
-        public int Id { get; set; }
+        public int ResId { get; set; }
 
-        [Required, StringLength(100)]
+        [Required, StringLength(255)]
         public string GuestName { get; set; } = default!;
 
-        [Range(1, int.MaxValue)]
+        [Required, Range(1, int.MaxValue)]
         public int Nights { get; set; }
 
-        public DateTime BookingDate { get; set; } = DateTime.Now;
+        [Required]
+        public DateTime CheckInDate { get; set; }
 
-        // Foreign key to Room
+        [Required]
+        public DateTime CheckOutDate { get; set; }
+
+        // One-to-One navigation property
+        public Review Review { get; set; } = null;
+
+        // Forign key relationships
+        [ForeignKey("Guest")]
+        public int GuestId { get; set; }
+        public Guest Guest { get; set; } // navigation to guest 
+
+        [ForeignKey("Room")]
         public int RoomId { get; set; }
-        public Room Room { get; set; } = default!;
-        
+        public Room Room { get; set; } // navigation to room
+
 
     }
 }
