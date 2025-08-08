@@ -11,4 +11,8 @@ This step includes install database packages, such as:
   2. Microsoft.EntityFrameworkCore.tools
   3. Microsoft.EntityFrameworkCore.SqlServer
 
+![](img/Backage_1.JPG)
+![](img/Backage_2.JPG)
+![](img/Backage_3.JPG)
+
 
