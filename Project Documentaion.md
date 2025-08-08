@@ -15,4 +15,10 @@ This step includes install database packages, such as:
 ![](img/Backage_2.JPG)
 ![](img/Backage_3.JPG)
 
+### 2. Create Models 
+Create Models includes attributes and data annotaions, such as:
+1. Room Model
+2. Resevation Model
+3. Guest Model
+
 
