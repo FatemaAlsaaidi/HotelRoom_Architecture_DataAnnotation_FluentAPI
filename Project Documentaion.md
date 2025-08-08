@@ -5,7 +5,10 @@ Console-based hotel room management using layered architecture and database conn
 Implements: Add/View Rooms, Reserve, View Reservations, Search by Guest, Highest-Paying Guest, Cancel, Exit.
 
 ## Project Development Process
-### 1. Setup And Configuration 
+### 1. ER Digram 
+![](img/ERD.png)
+
+### 2. Setup And Configuration 
 This step includes install database packages, such as: 
   1. Microsoft.EntityFrameworkCore
   2. Microsoft.EntityFrameworkCore.tools
@@ -15,7 +18,7 @@ This step includes install database packages, such as:
 ![](img/Backage_2.JPG)
 ![](img/Backage_3.JPG)
 
-### 2. Create Models 
+### 3. Create Models 
 Create Models includes attributes and data annotaions, such as:
 1. Room Model
 2. Resevation Model
