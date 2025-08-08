@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace HotelRoom_Architecture_DataAnnotation_FluentAPI.Models
 {
@@ -10,17 +11,21 @@ namespace HotelRoom_Architecture_DataAnnotation_FluentAPI.Models
     {
         // Guest class representing a hotel guest with properties for ID, name, email, phone number, and associated reservations.
         [key]
-        public int Id { get; set; }
+        public int GuestId { get; set; }
 
         [Required, StringLength(100)]
-        public string Name { get; set; } = default!;
+        public string Fname { get; set; } = default!;
+        [Required, StringLength(100)]
+        public string Lname { get; set; } = default!;
 
-        [EmailAddress]
-        public string? Email { get; set; }
 
-        [Phone]
-        public string? Phone { get; set; }
+        [Required, StringLength(50)]
+        public string NationalID { get; set; }
 
-        public ICollection<Reservation> Reservations { get; set; } = new List<Reservation>();
+        [Required,Phone]
+        public string Phone { get; set; }
+
+        public ICollection <Reservation> Reservations { get; set; } = new List<Reservation>(); // navigation property to reservations
+
     }
 }
