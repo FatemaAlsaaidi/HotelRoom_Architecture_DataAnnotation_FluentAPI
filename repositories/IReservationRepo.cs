@@ -5,7 +5,7 @@ namespace HotelRoomDB.repositories
     public interface IReservationRepo
     {
         void AddReservation(Reservation reservation);
-        void DeleteReservation(int reservationId);
+        void CancelReservation(int reservationId);
         bool ExistsOverlap(int roomId, DateTime start, DateTime end);
         List<Reservation> GetAllReservations();
         Reservation GetReservationById(int reservationId);

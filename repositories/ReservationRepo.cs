@@ -43,16 +43,17 @@ namespace HotelRoomDB.repositories
             _context.SaveChanges(); // Saves changes to the database
         }
 
-        // Delete a reservation by its ID
-        public void DeleteReservation(int reservationId)
+        // cancel a reservation by its ID
+        public void CancelReservation(int reservationId)
         {
-            var reservation = GetReservationById(reservationId); // Retrieves the reservation by its ID
-            if (reservation != null)
-            {
-                _context.Reservations.Remove(reservation); // Removes the reservation from the context
-                _context.SaveChanges(); // Saves changes to the database
-            }
+            var res = _context.Reservations.Find(reservationId);
+            if (res == null) return;
+
+            res.Status = "Cancelled";
+            _context.SaveChanges();
+            // no need to touch Room directly; availability is computed
         }
+
 
         // exist reservation 
         public bool ExistsOverlap(int roomId, DateTime start, DateTime end)
