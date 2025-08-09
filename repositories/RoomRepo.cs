@@ -26,5 +26,11 @@ namespace HotelRoomDB.repositories
         {
             return _context.Rooms.ToList(); // Fetches all rooms from the database
         }
+        // Add a new room to the database
+        public void AddRoom(Room room)
+        {
+            _context.Rooms.Add(room); // Adds the new room to the context
+            _context.SaveChanges(); // Saves changes to the database
+        }
     }
 }
