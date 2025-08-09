@@ -23,5 +23,11 @@ namespace HotelRoomDB.repositories
             _context.Reservations.Add(reservation); // Adds the new reservation to the context
             _context.SaveChanges(); // Saves changes to the database
         }
+
+        // Get all reservations from the database
+        public List<Reservation> GetAllReservations()
+        {
+            return _context.Reservations.ToList(); // Fetches all reservations from the database
+        }
     }
 }
