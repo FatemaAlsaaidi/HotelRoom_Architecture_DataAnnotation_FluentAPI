@@ -23,5 +23,7 @@ Create Models includes attributes and data annotaions, such as:
 1. Room Model
 2. Resevation Model
 3. Guest Model
+### 4. Repositries And interfaces 
+![](img/repositries.JPG)
 
 
