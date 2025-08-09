@@ -33,6 +33,15 @@ namespace HotelRoomDB.Services
             _guestRepository.AddGuest(guest);
         }
 
-        public void RemoveGuest(int guestId) { }
+        public void RemoveGuest(int guestId) 
+        { 
+            var gest = _guestRepository.GetGuestById(guestId);
+            if (gest != null) 
+            {
+                
+
+            
+            }
+        }
     }
 }
