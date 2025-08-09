@@ -48,5 +48,29 @@ namespace HotelRoomDB.Services
         { 
             _roomRepository.DeleteRoom(id);
         }
+
+        // update Reserved room
+        public void UpdateReservedRoom(int RoomId, bool isReserved)
+        {
+            var existingroom = _roomRepository.GetRoomById(RoomId);
+            if (existingroom != null)
+            {
+                existingroom.IsReserved = isReserved;
+
+                _roomRepository.UpdateRoom(existingroom);
+            }
+        }
+
+        // update daliyRate of room 
+        public void UpdateDaliyRateRoom(int RoomId, int daliyRate)
+        {
+            var existingroom = _roomRepository.GetRoomById(RoomId);
+            if (existingroom != null)
+            {
+                existingroom.DailyRate = daliyRate;
+
+                _roomRepository.UpdateRoom(existingroom);
+            }
+        }
     }
 }
