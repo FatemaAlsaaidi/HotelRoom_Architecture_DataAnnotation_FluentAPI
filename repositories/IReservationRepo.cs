@@ -6,6 +6,7 @@ namespace HotelRoomDB.repositories
     {
         void AddReservation(Reservation reservation);
         void DeleteReservation(int reservationId);
+        bool ExistsOverlap(int roomId, DateTime start, DateTime end);
         List<Reservation> GetAllReservations();
         Reservation GetReservationById(int reservationId);
         void UpdateReservation(Reservation reservation);

@@ -53,5 +53,17 @@ namespace HotelRoomDB.repositories
                 _context.SaveChanges(); // Saves changes to the database
             }
         }
+
+        // exist reservation 
+        public bool ExistsOverlap(int roomId, DateTime start, DateTime end)
+        {
+            return _context.Reservations.Any(r =>
+                r.RoomId == roomId &&
+                r.Status != "Cancelled" &&
+                start < r.CheckOutDate &&
+                end > r.CheckInDate
+            );
+        }
+
     }
 }
