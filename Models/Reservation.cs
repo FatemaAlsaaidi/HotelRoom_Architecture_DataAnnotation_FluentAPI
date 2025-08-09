@@ -14,12 +14,10 @@ namespace HotelRoom_Architecture_DataAnnotation_FluentAPI.Models
         [Key]
         public int ResId { get; set; }
 
-        [Required, StringLength(255)]
-        public string GuestName { get; set; } = default!;
-
         [Required, Range(1, int.MaxValue)]
         public int Nights { get; set; }
-
+        [Required]
+        public double TotlePrice { get; set; }
         [Required]
         public DateTime CheckInDate { get; set; }
 
