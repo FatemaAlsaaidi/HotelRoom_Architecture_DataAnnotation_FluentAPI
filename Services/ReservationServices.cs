@@ -32,7 +32,7 @@ namespace HotelRoomDB.Services
 
 
         // New booking 
-        public (bool Ok, string Message, int? ReservationId) AddNewBooking(int resId, int nights, DateTime checkInDate, int guestId, int roomId)
+        public (bool Ok, string Message, int ? ReservationId) AddNewBooking(int resId, int nights, DateTime checkInDate, int guestId, int roomId)
         {
             // 1) validation for number of night
             if (nights <= 0) return (false, "Number of nights must be greater than 0.", null);
@@ -69,10 +69,48 @@ namespace HotelRoomDB.Services
             };
 
             // 5) save 
+            room.IsReserved = true;
+           
             _reservationRepository.AddReservation(reservation);
            
             return (true, "Reservation created successfully.", reservation.ResId);
         }
+
+        // cancel booking 
+        public (bool Ok, string Massage, int ResID) CancelBooking (int ResId, int RoomID)
+        {
+            // check if room reserve 
+            var Book = _reservationRepository.GetReservationById(ResId); 
+            if (Book.RoomId == RoomID)
+            {
+                _reservationRepository.CancelReservation(ResId);
+                var room = _roomRepository.GetRoomById(RoomID);
+                room.IsReserved = false;
+                return (true, "Booking successfully Cancel", Book.ResId);
+            }
+            else
+            {
+                return (false,"There is no booking with this room", Book.RoomId);
+            }
+
+        }
+
+        // update Booking 
+        public (bool Ok, string Massage) UpdateBooking(int ResId, int RoomID)
+        {
+            var book = _reservationRepository.GetReservationById(ResId);
+            if (book != null) 
+            { 
+                if (book.RoomId == RoomID)
+                {
+                    _reservationRepository.UpdateReservation(book);
+                    return (true, "Seccussfully Update bokking");
+
+                }
+            }
+            return (false, "There is no booking with this id");
+        }
+
 
     }
 }
