@@ -57,6 +57,13 @@ namespace HotelRoomDB.Services
             }
         }
 
+        // Delete Review from the database through the repository
+        public void DeleteReview(int reviewId)
+        {
+            _reviewRepository.DeleteReview(reviewId);
+        }
+
+
 
 
 
