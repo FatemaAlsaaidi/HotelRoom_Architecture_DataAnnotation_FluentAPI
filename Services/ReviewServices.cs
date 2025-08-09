@@ -44,6 +44,20 @@ namespace HotelRoomDB.Services
         {
             return _reviewRepository.GetReviewById(reviewId);
         }
+        // Update Review in the database through the repository
+        public void UpdateReview(int reviewId, int rating, string comments)
+        {
+            var existingReview = _reviewRepository.GetReviewById(reviewId);
+            if (existingReview != null)
+            {
+                existingReview.Rating = rating;
+                existingReview.Comment = comments;
+
+                _reviewRepository.UpdateReview(existingReview);
+            }
+        }
+
+
 
 
 
