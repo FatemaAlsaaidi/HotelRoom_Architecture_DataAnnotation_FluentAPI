@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HotelRoomDB.repositories; // Assuming this is the correct namespace for IRoomRepo
+using HotelRoom_Architecture_DataAnnotation_FluentAPI.Models;
 
 
 namespace HotelRoomDB.Services
@@ -16,6 +17,20 @@ namespace HotelRoomDB.Services
         {
             _roomRepository = roomRepository ?? throw new ArgumentNullException(nameof(roomRepository));
         }
-        
+
+        // Add methods for room services here, e.g., GetRoomById, AddRoom, UpdateRoom, DeleteRoom, etc.
+        // Add new Room to the database through the repository
+        public void AddNewRoom(int roomId, decimal dailyRate, bool isAvailable)
+        {
+            // Create a new Room object
+            var room = new Room
+            {
+                RoomId = roomId,
+                DailyRate = dailyRate,
+                IsReserved = isAvailable
+            };
+            _roomRepository.AddRoom(room);
+        }
+
     }
 }
