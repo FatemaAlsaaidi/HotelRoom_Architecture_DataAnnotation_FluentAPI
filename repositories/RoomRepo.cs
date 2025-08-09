@@ -32,5 +32,12 @@ namespace HotelRoomDB.repositories
             _context.Rooms.Add(room); // Adds the new room to the context
             _context.SaveChanges(); // Saves changes to the database
         }
+
+        // Get a room by its ID
+        public Room GetRoomById(int roomId)
+        {
+            return _context.Rooms.Find(roomId); // Finds a room by its ID
+        }
+
     }
 }
