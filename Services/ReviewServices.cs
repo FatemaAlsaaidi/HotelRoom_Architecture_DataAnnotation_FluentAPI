@@ -33,7 +33,13 @@ namespace HotelRoomDB.Services
             _reviewRepository.AddReview(review);
         }
 
-        
+        // Get All Reviews in the database through the repository
+        public List<Review> GetAllReviews()
+        {
+            return _reviewRepository.GetAllReviews();
+        }
+
+
 
 
 
