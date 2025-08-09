@@ -35,5 +35,12 @@ namespace HotelRoomDB.repositories
         {
             return _context.Reservations.Find(reservationId); // Finds a reservation by its ID
         }
+
+        // Update an existing reservation
+        public void UpdateReservation(Reservation reservation)
+        {
+            _context.Reservations.Update(reservation); // Updates the reservation in the context
+            _context.SaveChanges(); // Saves changes to the database
+        }
     }
 }
