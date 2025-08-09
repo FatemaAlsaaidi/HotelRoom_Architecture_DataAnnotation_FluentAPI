@@ -32,5 +32,11 @@ namespace HotelRoomDB.Services
             _roomRepository.AddRoom(room);
         }
 
+        // Get All Rooms in the database through the repository
+        public List<Room> GetAllRooms()
+        {
+            return _roomRepository.GetAllRooms();
+        }
+
     }
 }
