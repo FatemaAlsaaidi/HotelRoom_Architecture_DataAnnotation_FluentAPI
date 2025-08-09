@@ -42,5 +42,16 @@ namespace HotelRoomDB.repositories
             _context.Reservations.Update(reservation); // Updates the reservation in the context
             _context.SaveChanges(); // Saves changes to the database
         }
-    }
+
+        // Delete a reservation by its ID
+        public void DeleteReservation(int reservationId)
+        {
+            var reservation = GetReservationById(reservationId); // Retrieves the reservation by its ID
+            if (reservation != null)
+            {
+                _context.Reservations.Remove(reservation); // Removes the reservation from the context
+                _context.SaveChanges(); // Saves changes to the database
+            }
+        }
+     }
 }
