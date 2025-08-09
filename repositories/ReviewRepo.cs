@@ -29,5 +29,12 @@ namespace HotelRoomDB.repositories
         {
             return _context.Reviews.ToList(); // Fetches all reviews from the database
         }
+
+        // Get a review by its ID
+        public Review GetReviewById(int reviewId)
+        {
+            return _context.Reviews.Find(reviewId); // Finds a review by its ID
+        }
+
     }
 }
