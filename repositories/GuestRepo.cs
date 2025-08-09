@@ -30,5 +30,11 @@ namespace HotelRoomDB.repositories
         {
             return _context.Guests.ToList(); // Fetches all guests from the database
         }
+
+        // Get a guest by their ID
+        public Guest GetGuestById(int guestId)
+        {
+            return _context.Guests.Find(guestId); // Finds a guest by their ID
+        }
     }
 }
