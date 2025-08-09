@@ -42,6 +42,16 @@ namespace HotelRoomDB.repositories
             _context.Reviews.Update(review); // Updates the review in the context
             _context.SaveChanges(); // Saves changes to the database
         }
+        // Delete a review by its ID
+        public void DeleteReview(int reviewId)
+        {
+            var review = GetReviewById(reviewId); // Retrieves the review by its ID
+            if (review != null)
+            {
+                _context.Reviews.Remove(review); // Removes the review from the context
+                _context.SaveChanges(); // Saves changes to the database
+            }
+        }
 
     }
 }
