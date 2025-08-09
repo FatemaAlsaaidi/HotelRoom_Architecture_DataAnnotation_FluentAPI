@@ -10,9 +10,9 @@ using HotelRoom_Architecture_DataAnnotation_FluentAPI.Models;
 
 namespace HotelRoomDB.repositories
 {
-    public class GuestRepo
+    public class GuestRepo : IGuestRepo
     {
-        private readonly HotelRoomManagementDBContext _context; 
+        private readonly HotelRoomManagementDBContext _context;
         public GuestRepo(HotelRoomManagementDBContext context)
         {
             _context = context;

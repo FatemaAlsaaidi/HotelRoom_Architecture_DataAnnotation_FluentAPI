@@ -9,7 +9,7 @@ using HotelRoom_Architecture_DataAnnotation_FluentAPI.Models;
 
 namespace HotelRoomDB.repositories
 {
-    public class ReservationRepo
+    public class ReservationRepo : IReservationRepo
     {
         private readonly HotelRoomManagementDBContext _context;
         public ReservationRepo(HotelRoomManagementDBContext context)
@@ -53,5 +53,5 @@ namespace HotelRoomDB.repositories
                 _context.SaveChanges(); // Saves changes to the database
             }
         }
-     }
+    }
 }

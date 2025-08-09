@@ -9,7 +9,7 @@ using HotelRoom_Architecture_DataAnnotation_FluentAPI.Models;
 
 namespace HotelRoomDB.repositories
 {
-    public class ReviewRepo
+    public class ReviewRepo : IReviewRepo
     {
         private readonly HotelRoomManagementDBContext _context;
         public ReviewRepo(HotelRoomManagementDBContext context)

@@ -8,7 +8,7 @@ using HotelRoom_Architecture_DataAnnotation_FluentAPI.Models;
 
 namespace HotelRoomDB.repositories
 {
-    public class RoomRepo
+    public class RoomRepo : IRoomRepo
     {
         // Constructor Injection is used to provide the database context to the repository
         private readonly HotelRoomManagementDBContext _context; // This is the database context that interacts with the database
@@ -22,7 +22,7 @@ namespace HotelRoomDB.repositories
         /// </summary>
         /// <returns></returns>
        //  get all rooms from the database
-        public List<Room> GetAllRooms() 
+        public List<Room> GetAllRooms()
         {
             return _context.Rooms.ToList(); // Fetches all rooms from the database
         }
