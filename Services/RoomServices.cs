@@ -50,7 +50,7 @@ namespace HotelRoomDB.Services
         }
 
         // update Reserved room
-        public void UpdateReservedRoom(int RoomId, bool isReserved)
+        public void UpdateRoom(int RoomId, bool isReserved)
         {
             var existingroom = _roomRepository.GetRoomById(RoomId);
             if (existingroom != null)
@@ -62,7 +62,7 @@ namespace HotelRoomDB.Services
         }
 
         // update daliyRate of room 
-        public void UpdateDaliyRateRoom(int RoomId, int daliyRate)
+        public void UpdateRoom(int RoomId, int daliyRate)
         {
             var existingroom = _roomRepository.GetRoomById(RoomId);
             if (existingroom != null)
