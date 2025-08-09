@@ -24,6 +24,8 @@ namespace HotelRoom_Architecture_DataAnnotation_FluentAPI.Models
         [Required]
         public DateTime CheckOutDate { get; set; }
 
+        public string Status { get; set; }
+
         // One-to-One navigation property
         public Review Review { get; set; } = null;
 
