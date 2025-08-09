@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema; // for ForeignKey attribute
 
 namespace HotelRoom_Architecture_DataAnnotation_FluentAPI.Models
 {
     public class Guest
     {
         // Guest class representing a hotel guest with properties for ID, name, email, phone number, and associated reservations.
-        [key]
+        [Key]
         public int GuestId { get; set; }
 
         [Required, StringLength(100)]

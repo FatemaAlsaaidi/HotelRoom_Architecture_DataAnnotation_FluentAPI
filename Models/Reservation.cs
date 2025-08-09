@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema; // for ForeignKey attribute
 
 namespace HotelRoom_Architecture_DataAnnotation_FluentAPI.Models
 {
