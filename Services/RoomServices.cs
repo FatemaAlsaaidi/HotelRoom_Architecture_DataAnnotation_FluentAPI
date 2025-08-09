@@ -43,6 +43,10 @@ namespace HotelRoomDB.Services
             return _roomRepository.GetRoomById(id);
         }
 
-        // Remove Room 
+        // Remove Room
+        public void RemoveRoom(int id) 
+        { 
+            _roomRepository.DeleteRoom(id);
+        }
     }
 }
