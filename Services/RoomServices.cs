@@ -9,7 +9,7 @@ using HotelRoom_Architecture_DataAnnotation_FluentAPI.Models;
 
 namespace HotelRoomDB.Services
 {
-    public class RoomServices
+    public class RoomServices : IRoomServices
     {
         // Constructor Injection 
         private readonly IRoomRepo _roomRepository;
@@ -38,14 +38,14 @@ namespace HotelRoomDB.Services
         }
 
         // Get Room by id 
-        public Room GetRoomByID(int id) 
-        { 
+        public Room GetRoomByID(int id)
+        {
             return _roomRepository.GetRoomById(id);
         }
 
         // Remove Room
-        public void RemoveRoom(int id) 
-        { 
+        public void RemoveRoom(int id)
+        {
             _roomRepository.DeleteRoom(id);
         }
 

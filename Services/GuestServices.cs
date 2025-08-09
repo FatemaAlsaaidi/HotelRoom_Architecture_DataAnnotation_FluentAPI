@@ -9,7 +9,7 @@ using HotelRoom_Architecture_DataAnnotation_FluentAPI.Models;
 
 namespace HotelRoomDB.Services
 {
-    public class GuestServices
+    public class GuestServices : IGuestServices
     {
         // Constructor Injection 
         private readonly IGuestRepo _guestRepository;
@@ -28,19 +28,19 @@ namespace HotelRoomDB.Services
                 Lname = lname,
                 NationalID = nationalID,
                 Phone = phone
-                
+
             };
             _guestRepository.AddGuest(guest);
         }
         // Remove Guest
-        public void RemoveGuest(int guestId) 
-        { 
+        public void RemoveGuest(int guestId)
+        {
             var gest = _guestRepository.GetGuestById(guestId);
-            if (gest != null) 
+            if (gest != null)
             {
-                
 
-            
+
+
             }
         }
 
@@ -63,9 +63,9 @@ namespace HotelRoomDB.Services
             if (ExistGuest != null)
 
                 ExistGuest.Phone = phone;
-                _guestRepository.UpdateGuest(ExistGuest);
-            }
-       
+            _guestRepository.UpdateGuest(ExistGuest);
+        }
+
 
 
     }

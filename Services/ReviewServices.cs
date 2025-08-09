@@ -10,7 +10,7 @@ using HotelRoom_Architecture_DataAnnotation_FluentAPI.Models;
 
 namespace HotelRoomDB.Services
 {
-    public class ReviewServices
+    public class ReviewServices : IReviewServices
     {
         // Constructor Injection 
         private readonly IReviewRepo _reviewRepository;
