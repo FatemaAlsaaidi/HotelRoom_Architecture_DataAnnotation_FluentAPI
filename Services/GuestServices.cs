@@ -32,7 +32,7 @@ namespace HotelRoomDB.Services
             };
             _guestRepository.AddGuest(guest);
         }
-
+        // Remove Guest
         public void RemoveGuest(int guestId) 
         { 
             var gest = _guestRepository.GetGuestById(guestId);
@@ -43,5 +43,30 @@ namespace HotelRoomDB.Services
             
             }
         }
+
+        // Get All Guest
+        public void GetAllGuest()
+        {
+            _guestRepository.GetAllGuests();
+        }
+
+        // get guest by id 
+        public void GetGuestById(int guestId)
+        {
+            _guestRepository.GetGuestById(guestId);
+        }
+
+        // update Phone of guest'
+        public void UpdateGuest(int GuestID, string phone)
+        {
+            var ExistGuest = _guestRepository.GetGuestById(GuestID);
+            if (ExistGuest != null)
+
+                ExistGuest.Phone = phone;
+                _guestRepository.UpdateGuest(ExistGuest);
+            }
+       
+
+
     }
 }
