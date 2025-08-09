@@ -23,5 +23,11 @@ namespace HotelRoomDB.repositories
             _context.Reviews.Add(review); // Adds the new review to the context
             _context.SaveChanges(); // Saves changes to the database
         }
+
+        // Get all reviews from the database
+        public List<Review> GetAllReviews()
+        {
+            return _context.Reviews.ToList(); // Fetches all reviews from the database
+        }
     }
 }
