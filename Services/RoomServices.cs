@@ -20,12 +20,11 @@ namespace HotelRoomDB.Services
 
         // Add methods for room services here, e.g., GetRoomById, AddRoom, UpdateRoom, DeleteRoom, etc.
         // Add new Room to the database through the repository
-        public void AddNewRoom(int roomId, decimal dailyRate, bool isAvailable)
+        public void AddNewRoom(decimal dailyRate, bool isAvailable)
         {
             // Create a new Room object
             var room = new Room
             {
-                RoomId = roomId,
                 DailyRate = dailyRate,
                 IsReserved = isAvailable
             };
@@ -38,5 +37,12 @@ namespace HotelRoomDB.Services
             return _roomRepository.GetAllRooms();
         }
 
+        // Get Room by id 
+        public Room GetRoomByID(int id) 
+        { 
+            return _roomRepository.GetRoomById(id);
+        }
+
+        // Remove Room 
     }
 }
