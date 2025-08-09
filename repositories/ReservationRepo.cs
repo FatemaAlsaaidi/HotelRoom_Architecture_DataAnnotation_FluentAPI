@@ -29,5 +29,11 @@ namespace HotelRoomDB.repositories
         {
             return _context.Reservations.ToList(); // Fetches all reservations from the database
         }
+
+        // Get a reservation by its ID
+        public Reservation GetReservationById(int reservationId)
+        {
+            return _context.Reservations.Find(reservationId); // Finds a reservation by its ID
+        }
     }
 }
