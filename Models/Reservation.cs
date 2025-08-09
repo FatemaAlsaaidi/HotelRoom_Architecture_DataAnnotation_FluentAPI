@@ -17,7 +17,7 @@ namespace HotelRoom_Architecture_DataAnnotation_FluentAPI.Models
         [Required, Range(1, int.MaxValue)]
         public int Nights { get; set; }
         [Required]
-        public double TotlePrice { get; set; }
+        public decimal TotlePrice { get; set; }
         [Required]
         public DateTime CheckInDate { get; set; }
 
