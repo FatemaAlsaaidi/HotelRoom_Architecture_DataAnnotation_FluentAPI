@@ -39,6 +39,12 @@ namespace HotelRoomDB.Services
             return _reviewRepository.GetAllReviews();
         }
 
+        // Get Review by Id from the database through the repository
+        public Review GetReviewById(int reviewId)
+        {
+            return _reviewRepository.GetReviewById(reviewId);
+        }
+
 
 
 
