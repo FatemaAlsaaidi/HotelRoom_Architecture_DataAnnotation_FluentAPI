@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore; // for DbContext and DbSet
 
 namespace HotelRoom_Architecture_DataAnnotation_FluentAPI
 {
-    internal class HotelRoomManagementContext : DbContext
+    public class HotelRoomManagementDBContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
