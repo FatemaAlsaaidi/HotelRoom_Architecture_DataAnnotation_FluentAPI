@@ -29,9 +29,55 @@ namespace HotelRoomDB.Services
             _GuestServices.AddNewGuest(guestId, firstName, lastName, nationalId, phone, password);
         }
 
+        // SignIn function
+        public bool SignIn()
+        {
+            // 1) Ask for ID
+            int guestId = _DataEntered.EnterGuestId();
+            var guest = _GuestServices.GetGuestById(guestId);
 
+            if (guest == null)
+            {
+                Console.WriteLine("Guest not found. Please sign up first.");
+                return false;
+            }
 
+            // 2) Up to 3 attempts
+            const int maxAttempts = 3;
+            for (int attempt = 1; attempt <= maxAttempts; attempt++)
+            {
+                Console.Write("Enter Password (or press Enter to cancel): ");
+                string rawPassword = _DataEntered.ReadPassword();
 
+                bool PassValid = Validation.PasswordVlidate.ValidatePassword(rawPassword);
+                if (!PassValid)
+                {
+                    Console.WriteLine("Invalid password format. Password must be 3 characters long.");
+                    return false;
+                }
+
+                // hash the entered password exactly the same way you hashed when signing up
+                string enteredHash = _DataEntered.HashPassword(rawPassword);
+
+                // NOTE: make sure the property name matches your model (Password / HashPassword)
+                string? savedHash = guest.Password; // or guest.HashPassword
+
+                if (!string.IsNullOrEmpty(savedHash) &&
+                    string.Equals(savedHash, enteredHash, StringComparison.Ordinal))
+                {
+                    Console.WriteLine($"Welcome {guest.Fname} {guest.Lname}!");
+                    // Optionally set current user in your app state
+                    // Program.CurrentGuest = guest;
+                    return true;
+                }
+
+                Console.WriteLine(attempt < maxAttempts
+                    ? "Invalid password. Try again."
+                    : "Invalid password. Sign-in failed.");
+            }
+
+            return false;
+        }
 
     }
 }
