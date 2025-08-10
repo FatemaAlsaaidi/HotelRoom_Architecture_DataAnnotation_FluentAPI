@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HotelRoom_Architecture_DataAnnotation_FluentAPI.Models;
-using HotelRoomDB.Data;
 
 
 namespace HotelRoomDB.repositories

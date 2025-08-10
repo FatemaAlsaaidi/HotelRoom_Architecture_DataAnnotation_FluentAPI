@@ -65,7 +65,6 @@ namespace HotelRoomDB.Services
                 if (!string.IsNullOrEmpty(savedHash) &&
                     string.Equals(savedHash, enteredHash, StringComparison.Ordinal))
                 {
-                    Console.WriteLine($"Welcome {guest.Fname} {guest.Lname}!");
                     // Optionally set current user in your app state
                     // Program.CurrentGuest = guest;
                     return true;

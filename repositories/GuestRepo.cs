@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HotelRoom_Architecture_DataAnnotation_FluentAPI.Models;
-using HotelRoomDB.Data;
 
 
 
@@ -12,6 +11,7 @@ namespace HotelRoomDB.repositories
 {
     public class GuestRepo : IGuestRepo
     {
+        // constructor Injection is used to provide the database context to the repository
         private readonly HotelRoomManagementDBContext _context;
         public GuestRepo(HotelRoomManagementDBContext context)
         {

@@ -111,6 +111,17 @@ namespace HotelRoomDB.Services
             return (false, "There is no booking with this id");
         }
 
+        // Get Booking by ID
+        public Reservation GetBookingById(int resId)
+        {
+            return _reservationRepository.GetReservationById(resId);
+        }
+        // Get All Bookings
+        public List<Reservation> GetAllBookings()
+        {
+            return _reservationRepository.GetAllReservations();
+        }
+
 
     }
 }

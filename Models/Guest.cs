@@ -14,7 +14,7 @@ namespace HotelRoom_Architecture_DataAnnotation_FluentAPI.Models
         [Key]
         public int GuestId { get; set; }
 
-        [Required, StringLength(100)]
+        [                                                          , StringLength(100)]
         public string Fname { get; set; } = default!;
         [Required, StringLength(100)]
         public string Lname { get; set; } = default!;

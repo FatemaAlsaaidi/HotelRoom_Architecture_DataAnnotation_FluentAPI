@@ -7,14 +7,18 @@ using System.Threading.Tasks;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace HotelRoomDB.Data
+namespace HotelRoomDB
 {
+
     public class HotelRoomManagementDBContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=DESKTOP-B1EOQP1 ;Initial Catalog=HotelRoomManagementDB;Integrated Security=True;TrustServerCertificate=True");
         }
+
+
+
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Guest> Guests { get; set; }

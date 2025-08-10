@@ -35,13 +35,7 @@ namespace HotelRoomDB.Services
         // Remove Guest
         public void RemoveGuest(int guestId)
         {
-            var gest = _guestRepository.GetGuestById(guestId);
-            if (gest != null)
-            {
-
-
-
-            }
+            _guestRepository.DeleteGuest(guestId);
         }
 
         // Get All Guest
