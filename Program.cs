@@ -334,7 +334,46 @@ internal class Program
     
     }
 
-    // 
+    // 3. Manage Bookings
+    public void ManageBookings()
+    {
+        bool showBookingMenu = true;
+        while (showBookingMenu)
+        {
+        Console.Clear();
+        Console.WriteLine("====================== Manage Bookings ======================== ");
+        Console.WriteLine("1. View All Bookings");
+        Console.WriteLine("2. View Specific Booking Data");
+        Console.WriteLine("3. Cancel Booking");
+        Console.WriteLine("0. Exist");
+        char choice = Console.ReadKey().KeyChar;
+            switch (choice)
+            {
+                case '1':
+                    Console.WriteLine("\nView All Bookings selected.");
+                    _reservationServices.GetAllBookings();
+                    break;
+                case '2':
+                    int bookingId = _dataEntered.EnterReservationId();
+                    _reservationServices.GetBookingById(bookingId);
+                    break;
+                case '3':
+                    int bookingId1 = _dataEntered.EnterReservationId();
+                    int roomId = _dataEntered.EnterRoomId();
+                    _reservationServices.CancelBooking(bookingId1, roomId);
+                    break;
+                case '0':
+                    Console.WriteLine("\nExiting Booking Management.");
+                    showBookingMenu = false; // Exit the booking management menu
+                    break;
+                default:
+                    Console.WriteLine("\nInvalid choice, please try again.");
+                    HoldConsole();
+                    ManageBookings(); // Show Manage Bookings menu again
+                    break;
+            }
+        }
+    }
 
 
 
