@@ -1,4 +1,5 @@
-﻿using HotelRoomDB;
+﻿using HotelRoom_Architecture_DataAnnotation_FluentAPI.Models;
+using HotelRoomDB;
 using HotelRoomDB.Data;
 using HotelRoomDB.repositories;
 using HotelRoomDB.Services;
@@ -400,21 +401,36 @@ internal class Program
                     Console.WriteLine("\nReview added successfully.");
                     break;
                 case '2':
+                    int bookingID;
+                    Reservation reservation;
                     Console.WriteLine("\nAll Reviews:");
                     var allReviews = _reviewServices.GetAllReviews();
                     foreach (var r in allReviews)
                     {
-                        Console.WriteLine($"Review ID: {r.ReviewId}, Guest ID: {r.GuestId}, Room ID: {r.RoomId}, Review: {r.ReviewText}");
+                        bookingID = r.ResId;
+                        reservation = _reservationServices.GetBookingById(bookingID);
+
+                        Console.WriteLine(
+                            $"Review ID: {r.ReviewId}, " +
+                            $"Guest: {reservation.Guest.Fname} (National ID: {reservation.Guest.NationalID}), " +
+                            $"Room: {reservation.RoomId}, " +
+                            $"Rating: {r.Rating}, " +
+                            $"Comment: {r.Comment}");
                         Console.WriteLine("====================================================");
                     }
                     HoldConsole();
                     break;
                 case '3':
                     int reviewId = _dataEntered.EnterReviewId();
-                    var review = _reviewServices.GetReviewByID(reviewId);
+                    var review = _reviewServices.GetReviewById(reviewId);
+                    Reservation reservation1;
+
+                    var bookingID1 = review.ResId;
+                    reservation1 = _reservationServices.GetBookingById(bookingID1);
+
                     if (review != null)
                     {
-                        Console.WriteLine($"Review ID: {review.ReviewId}, Guest ID: {review.GuestId}, Room ID: {review.RoomId}, Review: {review.ReviewText}");
+                        Console.WriteLine($"Review ID: {review.ReviewId}, Guest Name: {reservation1.Guest.Fname}, Room ID: {reservation1.Room.RoomId}, Review: {review.Comment}");
                     }
                     else
                     {
@@ -433,6 +449,8 @@ internal class Program
             }
         }
     }
+
+    /// ================= Guest Menu =====================
 
 
 
