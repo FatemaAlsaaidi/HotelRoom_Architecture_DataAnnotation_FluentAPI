@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Microsoft.EntityFrameworkCore; // for DbContext and DbSet
+using Microsoft.EntityFrameworkCore;
 
-namespace HotelRoom_Architecture_DataAnnotation_FluentAPI
+namespace HotelRoomDB.Data
 {
     public class HotelRoomManagementDBContext : DbContext
     {
