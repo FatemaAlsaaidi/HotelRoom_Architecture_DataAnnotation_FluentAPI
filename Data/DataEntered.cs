@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 
 namespace HotelRoomDB.Data
 {
-    public class DataEntered
+    public class DataEntered : IDataEntered
     {
 
         /// ======================================= Guest Data =================================
@@ -52,7 +52,7 @@ namespace HotelRoomDB.Data
             return phoneNumber;
         }
         // 6. Enter Guest Password
-        public static string ReadPassword()
+        public string ReadPassword()
         {
             string password = "";
             ConsoleKeyInfo key;
@@ -77,7 +77,7 @@ namespace HotelRoomDB.Data
             return password;
         }
         // 6.1 Generates a SHA256 hash for the given password.
-        public static string HashPassword(string password)
+        public string HashPassword(string password)
         {
             using var sha256 = SHA256.Create();
             byte[] bytes = Encoding.UTF8.GetBytes(password);
@@ -86,7 +86,7 @@ namespace HotelRoomDB.Data
         }
 
         //6.2 Implement the user to enter and confirm a password during sign-up.
-        public static string EnterPasswordForSignUp()
+        public string EnterPasswordForSignUp()
         {
             int tries = 0;
 
