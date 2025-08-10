@@ -375,6 +375,65 @@ internal class Program
         }
     }
 
+    // 4. Manage Reviews
+    public void ManageReview()
+    {
+        bool showReviewMenu = true;
+        while (showReviewMenu)
+        {
+            Console.Clear();
+            Console.WriteLine("====================== Manage Reviews ======================== ");
+            Console.WriteLine("1. Add Review");
+            Console.WriteLine("2. View All Reviews");
+            Console.WriteLine("3. View Specific Review Data");
+            Console.WriteLine("0. Exist");
+            char choice = Console.ReadKey().KeyChar;
+            switch (choice)
+            {
+                case '1':
+                    int ReviewId = _dataEntered.EnterReviewId();
+                    int resID = _dataEntered.EnterReservationId();
+                    string reviewText = _dataEntered.EnterReviewText();
+                    int Rating = _dataEntered.EnterRating();
+
+                    _reviewServices.AddNewReview(ReviewId, resID, reviewText, Rating);
+                    Console.WriteLine("\nReview added successfully.");
+                    break;
+                case '2':
+                    Console.WriteLine("\nAll Reviews:");
+                    var allReviews = _reviewServices.GetAllReviews();
+                    foreach (var r in allReviews)
+                    {
+                        Console.WriteLine($"Review ID: {r.ReviewId}, Guest ID: {r.GuestId}, Room ID: {r.RoomId}, Review: {r.ReviewText}");
+                        Console.WriteLine("====================================================");
+                    }
+                    HoldConsole();
+                    break;
+                case '3':
+                    int reviewId = _dataEntered.EnterReviewId();
+                    var review = _reviewServices.GetReviewByID(reviewId);
+                    if (review != null)
+                    {
+                        Console.WriteLine($"Review ID: {review.ReviewId}, Guest ID: {review.GuestId}, Room ID: {review.RoomId}, Review: {review.ReviewText}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Review not found.");
+                    }
+                    HoldConsole();
+                    break;
+                case '0':
+                    showReviewMenu = false; // Exit the review management menu
+                    break;
+                default:
+                    Console.WriteLine("\nInvalid choice, please try again.");
+                    HoldConsole();
+                    ManageReview(); // Show Manage Reviews menu again
+                    break;
+            }
+        }
+    }
+
 
 
 
