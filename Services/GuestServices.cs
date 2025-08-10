@@ -19,7 +19,7 @@ namespace HotelRoomDB.Services
         }
         // Add methods for guest services here, e.g., GetGuestById, AddGuest, UpdateGuest, DeleteGuest, etc.
         // Add new Guest
-        public void AddNewGuest(int guestId, string fname, string lname, string nationalID, string phone)
+        public void AddNewGuest(int guestId, string fname, string lname, string nationalID, string phone, string password)
         {
             var guest = new Guest
             {

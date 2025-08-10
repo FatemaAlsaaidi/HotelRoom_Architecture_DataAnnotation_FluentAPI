@@ -26,6 +26,10 @@ namespace HotelRoom_Architecture_DataAnnotation_FluentAPI.Models
         [Required,Phone]
         public string Phone { get; set; }
 
+        [Required, StringLength(3)]
+        public string Password { get; set; }
+
+
         public ICollection <Reservation> Reservations { get; set; } = new List<Reservation>(); // navigation property to reservations
 
     }
