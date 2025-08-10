@@ -13,7 +13,7 @@ namespace HotelRoom_Architecture_DataAnnotation_FluentAPI
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-J26O8DP\\SQLEXPRESS01;Initial Catalog=HotelRoomManagementDB;Integrated Security=True;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-B1EOQP1 ;Initial Catalog=HotelRoomManagementDB;Integrated Security=True;TrustServerCertificate=True");
         }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
