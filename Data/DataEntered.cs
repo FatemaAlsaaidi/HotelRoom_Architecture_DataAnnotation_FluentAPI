@@ -126,8 +126,104 @@ namespace HotelRoomDB.Data
         }
 
         /// ======================================= Room Data =================================
+        // 1. Enter Daily Rate for Room
+        public decimal EnterDailyRate()
+        {
+            Console.Write("Enter Daily Rate for Room: ");
+            decimal dailyRate = decimal.Parse(Console.ReadLine());
+            return dailyRate;
+        }
+
+        // 2. Enter Room Availability
+        public bool EnterRoomAvailability()
+        {
+            Console.Write("Is the room available? (yes/no): ");
+            string input = Console.ReadLine().ToLower();
+            if (input == "no" || input == "n")
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
 
 
+        }
 
+        // 3. Enter Room ID
+        public int EnterRoomId()
+        {
+            Console.Write("Enter Room ID: ");
+            int roomId = int.Parse(Console.ReadLine());
+            return roomId;
+        }
+
+        /// ====================================== Reservation Data =================================
+        public DateTime EnterCheckInDate()
+        {
+            Console.Write("Enter Check-In Date (yyyy-mm-dd): ");
+            DateTime checkInDate = DateTime.Parse(Console.ReadLine());
+            return checkInDate;
+        }
+        public DateTime EnterCheckOutDate()
+        {
+            Console.Write("Enter Check-Out Date (yyyy-mm-dd): ");
+            DateTime checkOutDate = DateTime.Parse(Console.ReadLine());
+            return checkOutDate;
+        }
+
+        public int EnterReservationId()
+        {
+            Console.Write("Enter Reservation ID: ");
+            int reservationId = int.Parse(Console.ReadLine());
+            return reservationId;
+        }
+
+        public int EnterGuestIdForReservation()
+        {
+            Console.Write("Enter Guest ID for Reservation: ");
+            int guestId = int.Parse(Console.ReadLine());
+            return guestId;
+        }
+
+        public int EnterRoomIdForReservation()
+        {
+            Console.Write("Enter Room ID for Reservation: ");
+            int roomId = int.Parse(Console.ReadLine());
+            return roomId;
+        }
+        public int EnterNights()
+        {
+            Console.Write("Enter Number of Nights: ");
+            int nights = int.Parse(Console.ReadLine());
+            return nights;
+
+        }
+
+        /// ===================================== Review Data =================================
+        public int EnterReviewId()
+        {
+            Console.Write("Enter Review ID: ");
+            int reviewId = int.Parse(Console.ReadLine());
+            return reviewId;
+        }
+        public string EnterReviewText()
+        {
+            Console.Write("Enter Review Content: ");
+            string reviewContent = Console.ReadLine();
+            return reviewContent;
+        }
+
+        public int EnterRating()
+        {
+            Console.Write("Enter Rating (1-5): ");
+            int rating;
+            while (!int.TryParse(Console.ReadLine(), out rating) || rating < 1 || rating > 5)
+            {
+                Console.Write("Invalid input. Please enter a rating between 1 and 5: ");
+            }
+            return rating;
+        }
     }
 }
