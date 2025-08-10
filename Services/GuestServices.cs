@@ -51,9 +51,9 @@ namespace HotelRoomDB.Services
         }
 
         // get guest by id 
-        public void GetGuestById(int guestId)
+        public Guest GetGuestById(int guestId)
         {
-            _guestRepository.GetGuestById(guestId);
+           return _guestRepository.GetGuestById(guestId);
         }
 
         // update Phone of guest'
