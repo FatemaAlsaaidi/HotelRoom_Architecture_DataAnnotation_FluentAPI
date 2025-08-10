@@ -59,6 +59,51 @@
             }
         }
 
+        // Admin Menu
+        public void AdminMenu()
+        {
+            bool showAdminMenu = true;
+            while (showAdminMenu)
+            {
+
+                Console.Clear();
+                Console.WriteLine("Admin Menu");
+                Console.WriteLine("1. Manage Users");
+                Console.WriteLine("2. Manage Rooms");
+                Console.WriteLine("3. Manage Bookings");
+                Console.WriteLine("4. Manage Reviews");
+                Console.WriteLine("0. Back to Main Menu");
+                char choice = Console.ReadKey().KeyChar;
+                switch (choice)
+                {
+                    case '1':
+                        Console.WriteLine("\nManage Users selected.");
+                        // Call Manage Users method here
+                        break;
+                    case '2':
+                        Console.WriteLine("\nManage Rooms selected.");
+                        // Call Manage Rooms method here
+                        break;
+                    case '3':
+                        Console.WriteLine("\nManage Bookings selected.");
+                        // Call Manage Bookings method here
+                        break;
+                    case '4':
+                        Console.WriteLine("\nManage Reviews selected.");
+                        // Call Manage Reviews method here
+                        break;
+                    case '0':
+                        showAdminMenu = false; // Exit the admin menu
+                        break;
+                    default:
+                        Console.WriteLine("\nInvalid choice, please try again.");
+                        HoldConsole();
+                        AdminMenu(); // Show Admin Menu again
+                        break;
+                }
+            }
+        }
+
 
 
     }
