@@ -41,13 +41,15 @@ namespace HotelRoomDB
                     .HasComment("Indicates if the room is currently reserved");
                 
             });
-                
+
 
            
 
 
 
-    }
+
+
+        }
 
 }
 
