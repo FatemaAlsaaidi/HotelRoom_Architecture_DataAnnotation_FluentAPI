@@ -8,12 +8,12 @@ using System.Security.Cryptography;
 
 namespace HotelRoomDB.Data
 {
-    public class DataEntered : IDataEntered
+    public class DataEntered 
     {
 
         /// ======================================= Guest Data =================================
         // 1. Enter Guest ID
-        public int EnterGuestId()
+        public static int EnterGuestId()
         {
             Console.Write("Enter Guest ID: ");
             int guestId = int.Parse(Console.ReadLine());
@@ -21,7 +21,7 @@ namespace HotelRoomDB.Data
         }
 
         // 2. Enter Guest First Name
-        public string EnterGuestFirstName()
+        public static string EnterGuestFirstName()
         {
             Console.Write("Enter Guest First Name: ");
             string firstName = Console.ReadLine();
@@ -29,7 +29,7 @@ namespace HotelRoomDB.Data
         }
 
         // 3. Enter Guest Last Name
-        public string EnterGuestLastName()
+        public static string EnterGuestLastName()
         {
             Console.Write("Enter Guest Last Name: ");
             string lastName = Console.ReadLine();
@@ -37,7 +37,7 @@ namespace HotelRoomDB.Data
         }
 
         // 4. Enter Guest National ID
-        public string EnterGuestNationalID()
+        public static string EnterGuestNationalID()
         {
             Console.Write("Enter Guest National ID: ");
             string nationalId = Console.ReadLine();
@@ -45,14 +45,14 @@ namespace HotelRoomDB.Data
         }
 
         // 5. Enter Guest Phone Number
-        public string EnterGuestPhoneNumber()
+        public static string EnterGuestPhoneNumber()
         {
             Console.Write("Enter Guest Phone Number: ");
             string phoneNumber = Console.ReadLine();
             return phoneNumber;
         }
         // 6. Enter Guest Password
-        public string ReadPassword()
+        public static string ReadPassword()
         {
             string password = "";
             ConsoleKeyInfo key;
@@ -77,7 +77,7 @@ namespace HotelRoomDB.Data
             return password;
         }
         // 6.1 Generates a SHA256 hash for the given password.
-        public string HashPassword(string password)
+        public static string HashPassword(string password)
         {
             using var sha256 = SHA256.Create();
             byte[] bytes = Encoding.UTF8.GetBytes(password);
@@ -86,7 +86,7 @@ namespace HotelRoomDB.Data
         }
 
         //6.2 Implement the user to enter and confirm a password during sign-up.
-        public string EnterPasswordForSignUp()
+        public static string EnterPasswordForSignUp()
         {
             int tries = 0;
 
@@ -127,7 +127,7 @@ namespace HotelRoomDB.Data
 
         /// ======================================= Room Data =================================
         // 1. Enter Daily Rate for Room
-        public decimal EnterDailyRate()
+        public static decimal EnterDailyRate()
         {
             Console.Write("Enter Daily Rate for Room: ");
             decimal dailyRate = decimal.Parse(Console.ReadLine());
@@ -135,7 +135,7 @@ namespace HotelRoomDB.Data
         }
 
         // 2. Enter Room Availability
-        public bool EnterRoomAvailability()
+        public static bool EnterRoomAvailability()
         {
             Console.Write("Is the room available? (yes/no): ");
             string input = Console.ReadLine().ToLower();
@@ -152,7 +152,7 @@ namespace HotelRoomDB.Data
         }
 
         // 3. Enter Room ID
-        public int EnterRoomId()
+        public static int EnterRoomId()
         {
             Console.Write("Enter Room ID: ");
             int roomId = int.Parse(Console.ReadLine());
@@ -160,40 +160,40 @@ namespace HotelRoomDB.Data
         }
 
         /// ====================================== Reservation Data =================================
-        public DateTime EnterCheckInDate()
+        public static DateTime EnterCheckInDate()
         {
             Console.Write("Enter Check-In Date (yyyy-mm-dd): ");
             DateTime checkInDate = DateTime.Parse(Console.ReadLine());
             return checkInDate;
         }
-        public DateTime EnterCheckOutDate()
+        public static DateTime EnterCheckOutDate()
         {
             Console.Write("Enter Check-Out Date (yyyy-mm-dd): ");
             DateTime checkOutDate = DateTime.Parse(Console.ReadLine());
             return checkOutDate;
         }
 
-        public int EnterReservationId()
+        public static int EnterReservationId()
         {
             Console.Write("Enter Reservation ID: ");
             int reservationId = int.Parse(Console.ReadLine());
             return reservationId;
         }
 
-        public int EnterGuestIdForReservation()
+        public static int EnterGuestIdForReservation()
         {
             Console.Write("Enter Guest ID for Reservation: ");
             int guestId = int.Parse(Console.ReadLine());
             return guestId;
         }
 
-        public int EnterRoomIdForReservation()
+        public static int EnterRoomIdForReservation()
         {
             Console.Write("Enter Room ID for Reservation: ");
             int roomId = int.Parse(Console.ReadLine());
             return roomId;
         }
-        public int EnterNights()
+        public static int EnterNights()
         {
             Console.Write("Enter Number of Nights: ");
             int nights = int.Parse(Console.ReadLine());
@@ -202,20 +202,20 @@ namespace HotelRoomDB.Data
         }
 
         /// ===================================== Review Data =================================
-        public int EnterReviewId()
+        public static int EnterReviewId()
         {
             Console.Write("Enter Review ID: ");
             int reviewId = int.Parse(Console.ReadLine());
             return reviewId;
         }
-        public string EnterReviewText()
+        public static string EnterReviewText()
         {
             Console.Write("Enter Review Content: ");
             string reviewContent = Console.ReadLine();
             return reviewContent;
         }
 
-        public int EnterRating()
+        public static int EnterRating()
         {
             Console.Write("Enter Rating (1-5): ");
             int rating;

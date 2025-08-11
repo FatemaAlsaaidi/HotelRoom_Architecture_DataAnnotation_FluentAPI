@@ -3,7 +3,6 @@ using HotelRoomDB;
 using HotelRoomDB.Data;
 using HotelRoomDB.repositories;
 using HotelRoomDB.Services;
-//using HotelRoomDB.Data;
 //using HotelRoom_Architecture_DataAnnotation_FluentAPI;
 
 
@@ -16,8 +15,9 @@ internal class Program
     private static IReviewServices _reviewServices = null!;
     private static IRoomServices _roomServices = null!;
     private static IReservationServices _reservationServices = null!;
-    private static AuthService _authService = null!;
-    private static IDataEntered _dataEntered = null!;
+    //private static IAuthService _authService = null!;
+    static IAuthService _authService;
+
     public static string AdminCode = "123"; // Example admin code, replace with your actual admin code logic
 
 
@@ -40,6 +40,7 @@ internal class Program
         IGuestRepo guestRepo = new GuestRepo(context);
         IGuestServices guestServices = new GuestServices(guestRepo);
 
+
         // Create an instance of the Review class to access its methods
         IReviewRepo reviewRepo = new ReviewRepo(context);
         IReviewServices reviewServices = new ReviewServices(reviewRepo);
@@ -52,6 +53,8 @@ internal class Program
         IReservationRepo reservationRepo = new ReservationRepo(context);
         IReservationServices reservationServices = new ReservationServices(reservationRepo);
 
+
+        
         MainMenu();
 
 
@@ -80,10 +83,14 @@ internal class Program
     // Main Menu *****
     public static void MainMenu()
     {
-        var authService = new AuthService(
-            new GuestServices(new GuestRepo(new HotelRoomManagementDBContext())),
-            new DataEntered());
-        
+        //static void Setup()
+        //{
+        //    var db = new HotelRoomManagementDBContext();
+        //    _authService = new Services.AuthService(new GuestServices(new GuestRepo(db)), new DataEntered());
+        //}
+
+
+
         bool showMenu = true;
         while (showMenu)
         {
@@ -102,14 +109,14 @@ internal class Program
                     Console.WriteLine("\nSign Up selected.");
                     // Call Sign Up method here
                     // You can create an instance of AuthService and call SignUp method
-                    authService.SignUp();
+                    _authService.SignUp();
 
                     break;
                 case '2':
                     Console.WriteLine("\nLogin selected.");
                     // Call Login method here
                     // You can create an instance of AuthService and call SignIn method
-                    bool isLoggedIn = authService.SignIn();
+                    bool isLoggedIn = _authService.SignIn();
                     if (isLoggedIn)
                     {
                         Console.WriteLine("Login successful!");
@@ -135,6 +142,7 @@ internal class Program
                                 break;
                             case '2':
                                 GuestMenu(); // Show Guest Menu
+
                                 break;
                             case '0':
                                 showMenu = false; // Exit the loop
@@ -223,29 +231,48 @@ internal class Program
             switch (choice)
             {
                 case '1':
-                    _roomServices.GetAllRooms();
-                    HoldConsole();
-                    break;
-                case '2':
-                    _roomServices.GetAllRooms();
-                    int RoomID = _dataEntered.EnterRoomId();
-                    int nights = _dataEntered.EnterNights();
-                    DateTime checkInDate = _dataEntered.EnterCheckInDate();
-                    string NationalID = _dataEntered.EnterGuestNationalID();
-                    var result = _reservationServices.AddNewBooking(0, nights, checkInDate, NationalID, RoomID);
-                    if (result.Ok)
+                    if (_roomServices is null)
                     {
-                        Console.WriteLine($"\nBooking successful! Reservation ID: {result.ReservationId}");
+                        Console.WriteLine("Rooms service is not available. Please contact support.");
+                        HoldConsole();
                     }
                     else
                     {
-                        Console.WriteLine($"\nBooking failed: {result.Message}");
+                        Console.WriteLine(" Rooms: ");
+                        _roomServices.GetAllRooms();
+                        HoldConsole();
                     }
-
-                    // Call Book a Room method here
                     break;
+                case '2':
+                    if (_roomServices is null)
+                    {
+                        Console.WriteLine("Rooms service is not available. Please contact support.");
+                        HoldConsole();
+                    }
+                    else
+                    {
+                        Console.WriteLine(" Rooms: ");
+                        _roomServices.GetAllRooms();
+
+                        Console.WriteLine("======================================================");
+                        int RoomID = Data.DataEntered.EnterRoomId();
+                        int nights = Data.DataEntered.EnterNights();
+                        DateTime checkInDate = Data.DataEntered.EnterCheckInDate();
+                        string NationalID = Data.DataEntered.EnterGuestNationalID();
+                        var result = _reservationServices.AddNewBooking(0, nights, checkInDate, NationalID, RoomID);
+                        if (result.Ok)
+                        {
+                            Console.WriteLine($"\nBooking successful! Reservation ID: {result.ReservationId}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\nBooking failed: {result.Message}");
+                        }
+
+                    }
+                break;
                 case '3':
-                    int guestId = _dataEntered.EnterGuestId();
+                    int guestId = Data.DataEntered.EnterGuestId();
 
                     var bookings = _reservationServices.GetAllBookingsByGuestId(guestId);
 
@@ -276,8 +303,8 @@ internal class Program
                     char cancelChoice = Console.ReadKey().KeyChar;
                     if (cancelChoice == 'y' || cancelChoice == 'Y')
                     {
-                        int bookingId = _dataEntered.EnterReservationId();
-                        int roomId = _dataEntered.EnterRoomId();
+                        int bookingId = Data.DataEntered.EnterReservationId();
+                        int roomId = Data.DataEntered.EnterRoomId();
                         var cancelResult = _reservationServices.CancelBooking(bookingId, roomId);
                         if (cancelResult.Ok)
                         {
@@ -293,9 +320,9 @@ internal class Program
                     break;
                 case '4':
                     //int reviewId = _dataEntered.EnterReviewId();
-                    int resID = _dataEntered.EnterReservationId();
-                    string reviewText = _dataEntered.EnterReviewText();
-                    int rating = _dataEntered.EnterRating();
+                    int resID = Data.DataEntered.EnterReservationId();
+                    string reviewText = Data.DataEntered.EnterReviewText();
+                    int rating = Data.DataEntered.EnterRating();
                     _reviewServices.AddNewReview(resID, reviewText, rating);
                     HoldConsole();
                     break;
@@ -329,7 +356,7 @@ internal class Program
                 HoldConsole();
                 break;
             case '2':
-               string NationalID=  _dataEntered.EnterGuestNationalID();
+               string NationalID=  Data.DataEntered.EnterGuestNationalID();
                 Console.WriteLine("\nView Specific Guest Data selected.");
                 var guest = _guestServices.GetGuestByNationalID(NationalID);
                 if (guest != null)
@@ -364,19 +391,19 @@ internal class Program
             switch (choice)
             {
                 case '1':
-                    decimal dailyRate = _dataEntered.EnterDailyRate();
-                    bool isAvailable = _dataEntered.EnterRoomAvailability();
+                    decimal dailyRate = Data.DataEntered.EnterDailyRate();
+                    bool isAvailable = Data.DataEntered.EnterRoomAvailability();
                     _roomServices.AddNewRoom(dailyRate, isAvailable);
                     Console.WriteLine("\nRoom added successfully.");
                     break;
                 case '2':
-                    int roomIdToDelete = _dataEntered.EnterRoomId();
+                    int roomIdToDelete = Data.DataEntered.EnterRoomId();
                     _roomServices.RemoveRoom(roomIdToDelete);
                     Console.WriteLine("\nRoom deleted successfully.");
                     break;
                 case '3':
-                    int roomIdToUpdate = _dataEntered.EnterRoomId();
-                    bool isReserved = _dataEntered.EnterRoomAvailability();
+                    int roomIdToUpdate = Data.DataEntered.EnterRoomId();
+                    bool isReserved = Data.DataEntered.EnterRoomAvailability();
                     _roomServices.UpdateRoom(roomIdToUpdate, isReserved);
                     Console.WriteLine("\nRoom updated successfully.");
                     break;
@@ -391,7 +418,7 @@ internal class Program
                     HoldConsole();
                     break;
                 case '5':
-                    int roomIdToView = _dataEntered.EnterRoomId();
+                    int roomIdToView = Data.DataEntered.EnterRoomId();
                     var room = _roomServices.GetRoomByID(roomIdToView);
                     if (room != null)
                     {
@@ -435,12 +462,12 @@ internal class Program
                     _reservationServices.GetAllBookings();
                     break;
                 case '2':
-                    int bookingId = _dataEntered.EnterReservationId();
+                    int bookingId = Data.DataEntered.EnterReservationId();
                     _reservationServices.GetBookingById(bookingId);
                     break;
                 case '3':
-                    int bookingId1 = _dataEntered.EnterReservationId();
-                    int roomId = _dataEntered.EnterRoomId();
+                    int bookingId1 = Data.DataEntered.EnterReservationId();
+                    int roomId = Data.DataEntered.EnterRoomId();
                     _reservationServices.CancelBooking(bookingId1, roomId);
                     break;
                 case '0':
@@ -492,7 +519,7 @@ internal class Program
                     HoldConsole();
                     break;
                 case '2':
-                    int reviewId = _dataEntered.EnterReviewId();
+                    int reviewId = Data.DataEntered.EnterReviewId();
                     var review = _reviewServices.GetReviewById(reviewId);
                     Reservation reservation1;
 

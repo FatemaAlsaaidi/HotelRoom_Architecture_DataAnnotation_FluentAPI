@@ -9,27 +9,26 @@ using HotelRoomDB.Data;
 
 namespace HotelRoomDB.Services
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         // Constructor to inject the repository
         private readonly IGuestServices _guestServices;
-        private readonly IDataEntered _dataEntered;
+        //private readonly IDataEntered _dataEntered;
 
-        public AuthService(IGuestServices guestServices, IDataEntered dataEntered)
+        public AuthService(IGuestServices guestServices)
         {
             _guestServices = guestServices ?? throw new ArgumentNullException(nameof(guestServices));
-            _dataEntered = dataEntered ?? throw new ArgumentNullException(nameof(dataEntered));
         }
 
         // SignUp function 
         public void SignUp()
         {
             //int guestId = _dataEntered.EnterGuestId();
-            string firstName = _dataEntered.EnterGuestFirstName();
-            string lastName = _dataEntered.EnterGuestLastName();
-            string nationalId = _dataEntered.EnterGuestNationalID();
-            string phone = _dataEntered.EnterGuestPhoneNumber();
-            string password = _dataEntered.EnterPasswordForSignUp();
+            string firstName = Data.DataEntered.EnterGuestFirstName();
+            string lastName = Data.DataEntered.EnterGuestLastName();
+            string nationalId = Data.DataEntered.EnterGuestNationalID();
+            string phone = Data.DataEntered.EnterGuestPhoneNumber();
+            string password = Data.DataEntered.EnterPasswordForSignUp();
             _guestServices.AddNewGuest(firstName, lastName, nationalId, phone, password);
         }
 
@@ -37,7 +36,7 @@ namespace HotelRoomDB.Services
         public bool SignIn()
         {
             // 1) Ask for ID
-            string NationalID = _dataEntered.EnterGuestNationalID();
+            string NationalID = Data.DataEntered.EnterGuestNationalID();
             var guest = _guestServices.GetGuestByNationalID(NationalID);
 
             if (guest == null)
@@ -52,7 +51,7 @@ namespace HotelRoomDB.Services
             for (int attempt = 1; attempt <= maxAttempts; attempt++)
             {
                 Console.Write("Enter Password (or press Enter to cancel): ");
-                string rawPassword = _dataEntered.ReadPassword();
+                string rawPassword = Data.DataEntered.ReadPassword();
 
                 bool PassValid = Validation.PasswordVlidate.ValidatePassword(rawPassword);
                 if (!PassValid)
@@ -62,7 +61,7 @@ namespace HotelRoomDB.Services
                 }
 
                 // hash the entered password exactly the same way you hashed when signing up
-                string enteredHash = _dataEntered.HashPassword(rawPassword);
+                string enteredHash = Data.DataEntered.HashPassword(rawPassword);
 
                 // NOTE: make sure the property name matches your model (Password / HashPassword)
                 string? savedHash = guest.Password; // or guest.HashPassword
