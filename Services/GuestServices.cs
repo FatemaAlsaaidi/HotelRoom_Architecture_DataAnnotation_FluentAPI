@@ -19,23 +19,25 @@ namespace HotelRoomDB.Services
         }
         // Add methods for guest services here, e.g., GetGuestById, AddGuest, UpdateGuest, DeleteGuest, etc.
         // Add new Guest
-        public void AddNewGuest(int guestId, string fname, string lname, string nationalID, string phone, string password)
+        public void AddNewGuest(string fname, string lname, string nationalID, string phone, string password)
         {
             var guest = new Guest
             {
-                GuestId = guestId,
+                //GuestId = guestId,
                 Fname = fname,
                 Lname = lname,
                 NationalID = nationalID,
-                Phone = phone
+                Phone = phone,
+                Password = password   
+
 
             };
             _guestRepository.AddGuest(guest);
         }
         // Remove Guest
-        public void RemoveGuest(int guestId)
+        public void RemoveGuest(string NationalID)
         {
-            _guestRepository.DeleteGuest(guestId);
+            _guestRepository.DeleteGuest(NationalID);
         }
 
         // Get All Guest
@@ -45,15 +47,15 @@ namespace HotelRoomDB.Services
         }
 
         // get guest by id 
-        public Guest GetGuestById(int guestId)
+        public Guest GetGuestByNationalID(string NationalID)
         {
-           return _guestRepository.GetGuestById(guestId);
+           return _guestRepository.GetGuestByNationalID(NationalID);
         }
 
         // update Phone of guest'
-        public void UpdateGuest(int GuestID, string phone)
+        public void UpdateGuest(string NationalID, string phone)
         {
-            var ExistGuest = _guestRepository.GetGuestById(GuestID);
+            var ExistGuest = _guestRepository.GetGuestByNationalID(NationalID);
             if (ExistGuest != null)
 
                 ExistGuest.Phone = phone;
