@@ -5,9 +5,9 @@ namespace HotelRoomDB.repositories
     public interface IGuestRepo
     {
         void AddGuest(Guest guest);
-        void DeleteGuest(int guestId);
+        void DeleteGuest(string guestNationalID);
         List<Guest> GetAllGuests();
-        Guest GetGuestById(int guestId);
+        Guest GetGuestByNationalID(string NationalID);
         void UpdateGuest(Guest guest);
     }
 }
