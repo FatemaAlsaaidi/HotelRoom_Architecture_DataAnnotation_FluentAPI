@@ -18,6 +18,7 @@ internal class Program
     private static IReservationServices _reservationServices = null!;
     private static AuthService _authService = null!;
     private static IDataEntered _dataEntered = null!;
+    public static string AdminCode = "123"; // Example admin code, replace with your actual admin code logic
 
 
     static void Main(string[] args)
@@ -50,99 +51,117 @@ internal class Program
         // Create an instance of the Reservation class to access its methods
         IReservationRepo reservationRepo = new ReservationRepo(context);
         IReservationServices reservationServices = new ReservationServices(reservationRepo);
+
+        MainMenu();
+
+
     }
 
 
     // Wellcome Message Massage
-    public void WellcomeMessage()
+    public static void WellcomeMessage()
     {
         Console.WriteLine("Welcome to the Hotel Room Management System!");
     }
 
     // Exit Message
-    public void ExitMessage()
+    public static void ExitMessage()
     {
         Console.WriteLine("Thank you for using the Hotel Room Management System. Goodbye!");
     }
 
     // Hold the Console
-    public void HoldConsole()
+    public static void HoldConsole()
     {
         Console.WriteLine("Press any key to continue...");
         Console.ReadKey();
     }
 
     // Main Menu *****
-    public void MainMenu()
+    public static void MainMenu()
     {
-        AuthService authService = new AuthService(new GuestServices(new GuestRepo(new HotelRoomManagementDBContext())));
-
+        var authService = new AuthService(
+            new GuestServices(new GuestRepo(new HotelRoomManagementDBContext())),
+            new DataEntered());
+        
         bool showMenu = true;
         while (showMenu)
-            Console.Clear();
-        WellcomeMessage();
-        Console.WriteLine("=========================================");
-        Console.WriteLine("Please select an option:");
-        Console.WriteLine("1. Sign Up");
-        Console.WriteLine("2. Login ");
-        Console.WriteLine("0. Exit");
-        char choice = Console.ReadKey().KeyChar;
-
-        switch (choice)
         {
-            case '1':
-                Console.WriteLine("\nSign Up selected.");
-                // Call Sign Up method here
-                // You can create an instance of AuthService and call SignUp method
-                authService.SignUp();
+            Console.Clear();
+            WellcomeMessage();
+            Console.WriteLine("=========================================");
+            Console.WriteLine("Please select an option:");
+            Console.WriteLine("1. Sign Up");
+            Console.WriteLine("2. Login ");
+            Console.WriteLine("0. Exit");
+            char choice = Console.ReadKey().KeyChar;
 
-                break;
-            case '2':
-                Console.WriteLine("\nLogin selected.");
-                // Call Login method here
-                // You can create an instance of AuthService and call SignIn method
-                bool isLoggedIn = authService.SignIn();
-                if(isLoggedIn)
-                {
-                    Console.WriteLine("Login successful!");
-                    // After successful login, show the user menu
-                    Console.WriteLine("1. Admin Menu");
-                    Console.WriteLine("2. Guest Menu");
-                    Console.WriteLine("0. Exit");
-                    char userChoice = Console.ReadKey().KeyChar;
-                    switch (userChoice)
+            switch (choice)
+            {
+                case '1':
+                    Console.WriteLine("\nSign Up selected.");
+                    // Call Sign Up method here
+                    // You can create an instance of AuthService and call SignUp method
+                    authService.SignUp();
+
+                    break;
+                case '2':
+                    Console.WriteLine("\nLogin selected.");
+                    // Call Login method here
+                    // You can create an instance of AuthService and call SignIn method
+                    bool isLoggedIn = authService.SignIn();
+                    if (isLoggedIn)
                     {
-                        case '1':
-                            AdminMenu(); // Show Admin Menu
-                            break;
-                        case '2':
-                            GuestMenu(); // Show Guest Menu
-                            break;
-                        case '0':
-                            showMenu = false; // Exit the loop
-                            break;
-                        default:
-                            Console.WriteLine("\nInvalid choice, please try again.");
-                            HoldConsole();
-                            break;
+                        Console.WriteLine("Login successful!");
+                        // After successful login, show the user menu
+                        Console.WriteLine("1. Admin Menu");
+                        Console.WriteLine("2. Guest Menu");
+                        Console.WriteLine("0. Exit");
+                        char userChoice = Console.ReadKey().KeyChar;
+                        switch (userChoice)
+                        {
+                            case '1':
+                                Console.WriteLine("Enter Admin Code:");
+                                string adminCode = Console.ReadLine();
+                                if (adminCode != "123") // Replace with your actual admin code validation
+                                {
+                                    Console.WriteLine("Invalid Admin Code. Access Denied.");
+                                    HoldConsole();
+                                }
+                                else
+                                {
+                                    AdminMenu(); // Show Admin Menu
+                                }
+                                break;
+                            case '2':
+                                GuestMenu(); // Show Guest Menu
+                                break;
+                            case '0':
+                                showMenu = false; // Exit the loop
+                                break;
+                            default:
+                                Console.WriteLine("\nInvalid choice, please try again.");
+                                HoldConsole();
+                                break;
+                        }
                     }
-                }
-                else
-                {
-                    Console.WriteLine("Login failed. Please try again.");
-                }
-                break;
-            case '0':
-                Console.WriteLine("\nExiting the application.");
-                ExitMessage();
-                HoldConsole();
-                showMenu = false; // Exit the loop
-                break;
+                    else
+                    {
+                        Console.WriteLine("Login failed. Please try again.");
+                    }
+                    break;
+                case '0':
+                    Console.WriteLine("\nExiting the application.");
+                    ExitMessage();
+                    HoldConsole();
+                    showMenu = false; // Exit the loop
+                    break;
+            }
         }
     }
 
     // Admin Menu
-    public void AdminMenu()
+    public static void AdminMenu()
     {
         bool showAdminMenu = true;
         while (showAdminMenu)
@@ -159,20 +178,20 @@ internal class Program
             switch (choice)
             {
                 case '1':
-                    Console.WriteLine("\nManage Users selected.");
-                    // Call Manage Users method here
+                    ManageGuest();
+                    HoldConsole();
                     break;
                 case '2':
-                    Console.WriteLine("\nManage Rooms selected.");
-                    // Call Manage Rooms method here
+                    ManageRoom();
+                    HoldConsole();
                     break;
                 case '3':
-                    Console.WriteLine("\nManage Bookings selected.");
-                    // Call Manage Bookings method here
+                    ManageBookings();
+                    HoldConsole();
                     break;
                 case '4':
-                    Console.WriteLine("\nManage Reviews selected.");
-                    // Call Manage Reviews method here
+                    ManageReview();
+                    HoldConsole();
                     break;
                 case '0':
                     showAdminMenu = false; // Exit the admin menu
@@ -188,7 +207,7 @@ internal class Program
 
 
     // Guest Menu
-    public void GuestMenu()
+    public static void GuestMenu()
     {
         bool showGuestMenu = true;
         while (showGuestMenu)
@@ -197,27 +216,88 @@ internal class Program
             Console.WriteLine("Guest Menu");
             Console.WriteLine("1. View Rooms");
             Console.WriteLine("2. Book a Room");
-            Console.WriteLine("3. View Bookings");
+            Console.WriteLine("3. View Guest Bookings");
             Console.WriteLine("4. Leave a Review");
             Console.WriteLine("0. Back to Main Menu");
             char choice = Console.ReadKey().KeyChar;
             switch (choice)
             {
                 case '1':
-                    Console.WriteLine("\nView Rooms selected.");
-                    // Call View Rooms method here
+                    _roomServices.GetAllRooms();
+                    HoldConsole();
                     break;
                 case '2':
-                    Console.WriteLine("\nBook a Room selected.");
+                    _roomServices.GetAllRooms();
+                    int RoomID = _dataEntered.EnterRoomId();
+                    int nights = _dataEntered.EnterNights();
+                    DateTime checkInDate = _dataEntered.EnterCheckInDate();
+                    string NationalID = _dataEntered.EnterGuestNationalID();
+                    var result = _reservationServices.AddNewBooking(0, nights, checkInDate, NationalID, RoomID);
+                    if (result.Ok)
+                    {
+                        Console.WriteLine($"\nBooking successful! Reservation ID: {result.ReservationId}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"\nBooking failed: {result.Message}");
+                    }
+
                     // Call Book a Room method here
                     break;
                 case '3':
-                    Console.WriteLine("\nView Bookings selected.");
-                    // Call View Bookings method here
+                    int guestId = _dataEntered.EnterGuestId();
+
+                    var bookings = _reservationServices.GetAllBookingsByGuestId(guestId);
+
+                    if (bookings == null || !bookings.Any())
+                    {
+                        Console.WriteLine("No bookings found for this guest.");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"\nBookings for Guest ID: {guestId}");
+                        Console.WriteLine("---------------------------------------------------------");
+
+                        foreach (var book in bookings)
+                        {
+                            Console.WriteLine(
+                                $"Booking ID: {book.ResId}, " +
+                                $"Guest: {book.Guest.Fname} {book.Guest.Lname}, " +
+                                $"Room ID: {book.RoomId}, " +
+                                $"Check-In: {book.CheckInDate:yyyy-MM-dd}, " +
+                                $"Check-Out: {book.CheckOutDate:yyyy-MM-dd}"
+                            );
+                        }
+                    }
+
+                    Console.WriteLine("---------------------------------------------------------");
+
+                    Console.WriteLine("Do you want to cancel a booking? (y/n)");
+                    char cancelChoice = Console.ReadKey().KeyChar;
+                    if (cancelChoice == 'y' || cancelChoice == 'Y')
+                    {
+                        int bookingId = _dataEntered.EnterReservationId();
+                        int roomId = _dataEntered.EnterRoomId();
+                        var cancelResult = _reservationServices.CancelBooking(bookingId, roomId);
+                        if (cancelResult.Ok)
+                        {
+                            Console.WriteLine($"\nBooking with ID {cancelResult.ResID} has been cancelled successfully.");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\nCancellation failed: {cancelResult.Massage}");
+                        }
+                    }
+
+                    HoldConsole();
                     break;
                 case '4':
-                    Console.WriteLine("\nLeave a Review selected.");
-                    // Call Leave a Review method here
+                    //int reviewId = _dataEntered.EnterReviewId();
+                    int resID = _dataEntered.EnterReservationId();
+                    string reviewText = _dataEntered.EnterReviewText();
+                    int rating = _dataEntered.EnterRating();
+                    _reviewServices.AddNewReview(resID, reviewText, rating);
+                    HoldConsole();
                     break;
                 case '0':
                     showGuestMenu = false; // Exit the guest menu
@@ -233,7 +313,7 @@ internal class Program
 
     /// ================= Admin Menu=====================
     // 1. Manage Guest
-    public void ManageGuest()
+    public static void ManageGuest()
     {
         Console.WriteLine("====================== Manage Guest ======================== ");
         Console.WriteLine("1. View All Guest");
@@ -249,9 +329,9 @@ internal class Program
                 HoldConsole();
                 break;
             case '2':
-               int GuestID =  _dataEntered.EnterGuestId();
+               string NationalID=  _dataEntered.EnterGuestNationalID();
                 Console.WriteLine("\nView Specific Guest Data selected.");
-                var guest = _guestServices.GetGuestById(GuestID);
+                var guest = _guestServices.GetGuestByNationalID(NationalID);
                 if (guest != null)
                 {
                     Console.WriteLine($"Guest ID: {guest.GuestId}, Name: {guest.Fname} {guest.Lname}, National ID: {guest.NationalID}, Phone: {guest.Phone}");
@@ -267,7 +347,7 @@ internal class Program
 
     } 
     // 2. Manage Rooms
-    public void ManageRoom() 
+    public static void ManageRoom() 
     {
         bool showRoomMenu = true;
         while (showRoomMenu)
@@ -336,7 +416,7 @@ internal class Program
     }
 
     // 3. Manage Bookings
-    public void ManageBookings()
+    public static void ManageBookings()
     {
         bool showBookingMenu = true;
         while (showBookingMenu)
@@ -377,30 +457,21 @@ internal class Program
     }
 
     // 4. Manage Reviews
-    public void ManageReview()
+    public static void ManageReview()
     {
         bool showReviewMenu = true;
         while (showReviewMenu)
         {
             Console.Clear();
             Console.WriteLine("====================== Manage Reviews ======================== ");
-            Console.WriteLine("1. Add Review");
-            Console.WriteLine("2. View All Reviews");
-            Console.WriteLine("3. View Specific Review Data");
+            Console.WriteLine("1. View All Reviews");
+            Console.WriteLine("2. View Specific Review Data");
             Console.WriteLine("0. Exist");
             char choice = Console.ReadKey().KeyChar;
             switch (choice)
             {
+                
                 case '1':
-                    int ReviewId = _dataEntered.EnterReviewId();
-                    int resID = _dataEntered.EnterReservationId();
-                    string reviewText = _dataEntered.EnterReviewText();
-                    int Rating = _dataEntered.EnterRating();
-
-                    _reviewServices.AddNewReview(ReviewId, resID, reviewText, Rating);
-                    Console.WriteLine("\nReview added successfully.");
-                    break;
-                case '2':
                     int bookingID;
                     Reservation reservation;
                     Console.WriteLine("\nAll Reviews:");
@@ -420,7 +491,7 @@ internal class Program
                     }
                     HoldConsole();
                     break;
-                case '3':
+                case '2':
                     int reviewId = _dataEntered.EnterReviewId();
                     var review = _reviewServices.GetReviewById(reviewId);
                     Reservation reservation1;
