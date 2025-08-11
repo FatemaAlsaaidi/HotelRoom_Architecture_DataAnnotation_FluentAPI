@@ -32,7 +32,7 @@ namespace HotelRoomDB.Services
 
 
         // New booking 
-        public (bool Ok, string Message, int? ReservationId) AddNewBooking(int resId, int nights, DateTime checkInDate, int guestId, int roomId)
+        public (bool Ok, string Message, int? ReservationId) AddNewBooking(int resId, int nights, DateTime checkInDate, string NationalID, int roomId)
         {
             // 1) validation for number of night
             if (nights <= 0) return (false, "Number of nights must be greater than 0.", null);
@@ -44,8 +44,8 @@ namespace HotelRoomDB.Services
             var room = _roomRepository.GetRoomById(roomId);
             if (room == null) return (false, "There is no room with this id number.", null);
 
-            var guest = _guestRepository.GetGuestById(guestId);
-            if (guest == null) return (false, "There is no guest with this id number.", null);
+            var guest = _guestRepository.GetGuestByNationalID(NationalID);
+            if (guest == null) return (false, "There is no guest with this NationalID number.", null);
 
             // 3) avoid booking same room in same date this state named overlaps 
             // Overlaps rule: (startA < endB) && (endA > startB)
@@ -64,7 +64,7 @@ namespace HotelRoomDB.Services
                 CheckOutDate = checkOutDate,
                 TotlePrice = room.DailyRate * nights, // decimal * int = decimal
                 RoomId = roomId,
-                GuestId = guestId,
+                GuestId = guest.GuestId,
                 Status = "Confirmed" // optional
             };
 
@@ -120,6 +120,12 @@ namespace HotelRoomDB.Services
         public List<Reservation> GetAllBookings()
         {
             return _reservationRepository.GetAllReservations();
+        }
+
+        // Get All Bookings by Guest ID
+        public List<Reservation> GetAllBookingsByGuestId(int guestId)
+        {
+            return _reservationRepository.GetReservationsByGuestId(guestId);
         }
 
 
