@@ -4,7 +4,7 @@ namespace HotelRoomDB.Services
 {
     public interface IReviewServices
     {
-        void AddNewReview(int ReviewId, int Rating, string Comment, int ResId);
+        void AddNewReview(int Rating, string Comment, int ResId);
         void DeleteReview(int reviewId);
         List<Review> GetAllReviews();
         Review GetReviewById(int reviewId);

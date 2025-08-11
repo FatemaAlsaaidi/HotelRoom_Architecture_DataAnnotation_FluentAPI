@@ -20,12 +20,12 @@ namespace HotelRoomDB.Services
         }
         /// Add methods for review services here, e.g., GetReviewById, AddReview, UpdateReview, DeleteReview, etc.
         // Add new Review to the database through the repository
-        public void AddNewReview(int ReviewId, int Rating, string Comment, int ResId)
+        public void AddNewReview(int Rating, string Comment, int ResId)
         {
             // Create a new Review object
             var review = new Review
             {
-                ReviewId = ReviewId,
+                //ReviewId = ReviewId,
                 Rating = Rating,
                 Comment = Comment,
                 ResId = ResId
