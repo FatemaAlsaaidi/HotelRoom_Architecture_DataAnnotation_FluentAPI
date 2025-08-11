@@ -10,7 +10,7 @@ namespace HotelRoomDB.Validation
     {
         public static bool ValidatePassword(string password) // Validates the password of a user
         {
-            if (string.IsNullOrWhiteSpace(password) || password.Length ==3)
+            if (string.IsNullOrWhiteSpace(password) || password.Length < 3)
                 return false;// Check if the password is null, empty, or not equal 3 characters long
             else return true;
         }
