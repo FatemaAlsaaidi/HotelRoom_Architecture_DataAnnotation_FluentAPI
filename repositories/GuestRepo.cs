@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HotelRoom_Architecture_DataAnnotation_FluentAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 
 
@@ -32,9 +33,11 @@ namespace HotelRoomDB.repositories
         }
 
         // Get a guest by their ID
-        public Guest GetGuestById(int guestId)
+        public Guest GetGuestByNationalID(string nationalID)
         {
-            return _context.Guests.Find(guestId); // Finds a guest by their ID
+            return _context.Guests
+                   .AsNoTracking() // optional, better performance if you just read
+                   .FirstOrDefault(g => g.NationalID == nationalID);
         }
 
         // Update an existing guest
@@ -44,10 +47,10 @@ namespace HotelRoomDB.repositories
             _context.SaveChanges(); // Saves changes to the database
         }
 
-        // Delete a guest by their ID
-        public void DeleteGuest(int guestId)
+        // Delete a guest by their national id
+        public void DeleteGuest(string guestNationalID)
         {
-            var guest = GetGuestById(guestId); // Retrieves the guest by their ID
+            var guest = GetGuestByNationalID(guestNationalID); // Retrieves the guest by their National ID
             if (guest != null)
             {
                 _context.Guests.Remove(guest); // Removes the guest from the context
