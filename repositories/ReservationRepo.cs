@@ -65,5 +65,13 @@ namespace HotelRoomDB.repositories
             );
         }
 
+        // get all reservations for specific guest ID
+        public List<Reservation> GetReservationsByGuestId(int guestId)
+        {
+            return _context.Reservations
+                .Where(r => r.GuestId == guestId)
+                .ToList(); // Fetches all reservations for a specific guest ID
+
+        }
     }
 }

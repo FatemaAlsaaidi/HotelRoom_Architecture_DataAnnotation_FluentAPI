@@ -10,5 +10,6 @@ namespace HotelRoomDB.repositories
         List<Reservation> GetAllReservations();
         Reservation GetReservationById(int reservationId);
         void UpdateReservation(Reservation reservation);
+        List<Reservation> GetReservationsByGuestId(int guestId);
     }
 }
