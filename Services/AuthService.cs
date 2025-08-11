@@ -12,33 +12,38 @@ namespace HotelRoomDB.Services
     public class AuthService
     {
         // Constructor to inject the repository
-        private readonly IGuestServices _GuestServices;
-        private readonly IDataEntered _DataEntered;
-        public AuthService(IGuestServices GuestService) => _GuestServices = GuestService;
-        public AuthService(IDataEntered DataEntered) => _DataEntered = DataEntered;
+        private readonly IGuestServices _guestServices;
+        private readonly IDataEntered _dataEntered;
+
+        public AuthService(IGuestServices guestServices, IDataEntered dataEntered)
+        {
+            _guestServices = guestServices ?? throw new ArgumentNullException(nameof(guestServices));
+            _dataEntered = dataEntered ?? throw new ArgumentNullException(nameof(dataEntered));
+        }
 
         // SignUp function 
         public void SignUp()
         {
-            int guestId = _DataEntered.EnterGuestId();
-            string firstName = _DataEntered.EnterGuestFirstName();
-            string lastName = _DataEntered.EnterGuestLastName();
-            string nationalId = _DataEntered.EnterGuestNationalID();
-            string phone = _DataEntered.EnterGuestPhoneNumber();
-            string password = _DataEntered.EnterPasswordForSignUp();
-            _GuestServices.AddNewGuest(guestId, firstName, lastName, nationalId, phone, password);
+            //int guestId = _dataEntered.EnterGuestId();
+            string firstName = _dataEntered.EnterGuestFirstName();
+            string lastName = _dataEntered.EnterGuestLastName();
+            string nationalId = _dataEntered.EnterGuestNationalID();
+            string phone = _dataEntered.EnterGuestPhoneNumber();
+            string password = _dataEntered.EnterPasswordForSignUp();
+            _guestServices.AddNewGuest(firstName, lastName, nationalId, phone, password);
         }
 
         // SignIn function
         public bool SignIn()
         {
             // 1) Ask for ID
-            int guestId = _DataEntered.EnterGuestId();
-            var guest = _GuestServices.GetGuestById(guestId);
+            string NationalID = _dataEntered.EnterGuestNationalID();
+            var guest = _guestServices.GetGuestByNationalID(NationalID);
 
             if (guest == null)
             {
                 Console.WriteLine("Guest not found. Please sign up first.");
+                Console.ReadLine();
                 return false;
             }
 
@@ -47,7 +52,7 @@ namespace HotelRoomDB.Services
             for (int attempt = 1; attempt <= maxAttempts; attempt++)
             {
                 Console.Write("Enter Password (or press Enter to cancel): ");
-                string rawPassword = _DataEntered.ReadPassword();
+                string rawPassword = _dataEntered.ReadPassword();
 
                 bool PassValid = Validation.PasswordVlidate.ValidatePassword(rawPassword);
                 if (!PassValid)
@@ -57,7 +62,7 @@ namespace HotelRoomDB.Services
                 }
 
                 // hash the entered password exactly the same way you hashed when signing up
-                string enteredHash = _DataEntered.HashPassword(rawPassword);
+                string enteredHash = _dataEntered.HashPassword(rawPassword);
 
                 // NOTE: make sure the property name matches your model (Password / HashPassword)
                 string? savedHash = guest.Password; // or guest.HashPassword
