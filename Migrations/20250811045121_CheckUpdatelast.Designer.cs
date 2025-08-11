@@ -4,6 +4,7 @@ using HotelRoomDB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelRoomDB.Migrations
 {
     [DbContext(typeof(HotelRoomManagementDBContext))]
-    partial class HotelRoomManagementDBContextModelSnapshot : ModelSnapshot
+    [Migration("20250811045121_CheckUpdatelast")]
+    partial class CheckUpdatelast
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,17 +50,14 @@ namespace HotelRoomDB.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("GuestId");
-
-                    b.HasIndex("NationalID")
-                        .IsUnique();
 
                     b.ToTable("Guests");
                 });
